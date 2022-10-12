@@ -1,0 +1,75 @@
+﻿@model Cricket_Auction.Models.Team
+
+@{
+    ViewData["Title"] = "Update";
+}
+
+<h1>Update</h1>
+
+<h4>Team Data</h4>
+<hr />
+<div class="row">
+    <div class="col-md">
+        <form asp-action="Update" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="TeamID" value="@Model.TeamID" />
+            <div class="form-group">
+                <label asp-for="TeamName" class="control-label"></label>
+                <input asp-for="TeamName" class="form-control" />
+                <span asp-validation-for="TeamName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                <label asp-for="Username" class="control-label"></label>
+                <textarea asp-for="Username" class="form-control"></textarea>
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <textarea asp-for="Password" class="form-control"></textarea>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <textarea asp-for="Email" class="form-control"></textarea>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Batting" class="control-label"></label>
+                <textarea asp-for="Batting" class="form-control"></textarea>
+                <span asp-validation-for="Batting" class="text-danger"></span>
+                <div class="form-group">
+                    <label asp-for="Balling" class="control-label"></label>
+                    <textarea asp-for="Balling" class="form-control"></textarea>
+                    <span asp-validation-for="Balling" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="StrikeRate" class="control-label"></label>
+                    <textarea asp-for="StrikeRate" class="form-control"></textarea>
+                    <span asp-validation-for="StrikeRate" class="text-danger"></span>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <select asp-for="Status" class="form-control" asp-items="Html.GetEnumSelectList<Status>()"></select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <input type="submit" value="Update" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

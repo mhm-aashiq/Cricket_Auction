@@ -1,0 +1,53 @@
+﻿@model Cricket_Auction.Models.Team
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_BE_Layout.cshtml";
+}
+
+<h1>Registration</h1>
+
+<h4>Team Registration</h4>
+<hr />
+<div class="border container" style="padding:30px;">
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="TeamName"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="TeamName" class="form-control" />
+                <span asp-validation-for="TeamName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Price"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+        </div>
+
+
+       
+
+        <div class="form-group row">
+            <div class="col-3 offset-3">
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary form-control" />
+                </div>
+            </div>
+            <div class="col-3">
+                <a asp-action="ManageTeam" class="btn btn-success form-control">Back</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

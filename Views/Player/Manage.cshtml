@@ -1,0 +1,170 @@
+﻿
+@model IEnumerable<Cricket_Auction.Models.Player>
+
+@{
+    ViewData["Title"] = "Manage Players";
+    Layout = "~/Views/Shared/_BE_Layout.cshtml";
+
+}
+
+<br />
+<div class="container row p-0 m-0">
+    <div class="col-6">
+        <h2 class="text-info">List of Players</h2>
+    </div>
+    <div class="col-3 offset-3">
+  
+        <a asp-action="Create" asp-controller="Player" class="btn btn-info form-control text-white">
+            Add Player
+        </a>
+    </div>
+    <div class="col-12 border p-3">
+       
+
+
+        <table class="table table-responsive-lg">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LastName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Username)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Password)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Batting)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Balling)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StrikeRate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </th>
+                    
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Username)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Password)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Batting)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Balling)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StrikeRate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                  
+                    <td>
+                        <a asp-action="Update" asp-route-id="@item.PlayerID">Edit</a> |
+                        <a asp-action="Delete" asp-route-id="@item.PlayerID">Delete</a>
+
+                        <input type="button" onclick="ConfirmDelete(@item.PlayerID)" class="btn btn-danger" value="Delete" />
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<script>
+
+    function ConfirmDelete(id) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-danger m-2',
+                cancelButton: 'btn btn-info m-2'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Player/Delete",
+                    data: { id: id },
+                    success: function (result) {
+                        if (result.status == "success") {
+                            swalWithBootstrapButtons.fire(
+                                'Success',
+                                result.Message,
+                                'Success'
+                            ).then((res) => {
+                                if (res.isConfirmed) {
+                                    location.reload();
+                                }
+                            })
+                        }
+                        else {
+                            swalWithBootstrapButtons.fire(
+                                'Error',
+                                result.Message,
+                                'error'
+                            )
+                        }
+                    }
+                })
+
+            }
+            else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                //swalWithBootstrapButtons.fire(
+                //    'Cancelled',
+                //    'Your data is safe :)',
+                //    'error'
+                //)
+            }
+        })
+    }
+</script>
+
+
+@section Scripts{
+    <script src="~/js/Auction.js"></script>
+}

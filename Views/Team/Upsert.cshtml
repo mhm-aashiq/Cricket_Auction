@@ -1,0 +1,72 @@
+﻿@model Cricket_Auction.Models.Team
+@{
+    ViewData["Title"] = "Edit Team";
+    Layout = "~/Views/Shared/_BE_Layout.cshtml";
+
+}
+
+<br />
+<h2 class="text-info">@(Model.TeamID!=0 ? "Edit" : "Create") Team</h2>
+<br />
+
+<div class="border container" style="padding:30px;">
+    <form method="post">
+        @if (Model.TeamID != 0)
+        {
+            <input type="hidden" asp-for="TeamID" />
+        }
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+        @*<div class="form-group row">
+            <div class="col-3">
+                <label asp-for="TeamOwnerID"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="TeamOwnerID" class="form-control" />
+                <span asp-validation-for="TeamOwnerID" class="text-danger"></span>
+            </div>
+        </div>*@
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="TeamName"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="TeamName" class="form-control" />
+                <span asp-validation-for="TeamName" class="text-danger"></span>
+            </div>
+        </div>
+        @*<div class="form-group row">
+            <div class="col-3">
+                <label asp-for="PlayerID"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="PlayerID" class="form-control" />
+                <span asp-validation-for="PlayerID" class="text-danger"></span>
+            </div>
+        </div>*@
+     
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Price"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+        </div>
+   
+        <div class="form-group row">
+            <div class="col-3 offset-3">
+                <button type="submit" class="btn btn-primary form-control">
+                    @*@(Model.PlayerID != 0 ? "Update" : "Create")*@ 
+                </button>
+            </div>
+            <div class="col-3">
+                <a asp-action="ManageTeam" class="btn btn-success form-control">Back to List</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts{ 
+<partial name="_ValidationScriptsPartial" />
+}

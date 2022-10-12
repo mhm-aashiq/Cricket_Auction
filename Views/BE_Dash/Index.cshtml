@@ -1,0 +1,82 @@
+﻿
+@model IEnumerable<Cricket_Auction.Models.Player>
+@{
+    ViewData["Title"] = "E-Sports";
+    Layout = "~/Views/Shared/_BE_Layout.cshtml";
+
+}
+
+
+
+<section class="wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col text-center mb-5">
+                <h1 class="display-4">Welcome to the Dashboard of Admin</h1>
+                <p class="lead font-weight-bold">The Leading solution for E-Sports Pvt Lmt </p>
+                <h4 class="text-danger font-weight-bold">The Players are Visible here!</h4>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var item in ViewBag.Player)
+            {
+
+              
+                <div class="col-lg-3 m-md-3 col-10 ">
+                    <div class="card p-0">
+                        <div class="card-image">
+                            <img src="https://images.pexels.com/photos/2746187/pexels-photo-2746187.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                                 alt="">
+                        </div>
+                        <div class="card-content d-flex flex-column align-items-center ">
+                            <h3 class="pt-2">@item.FirstName</h3>
+                            <h4>@item.LastName</h4>
+
+                            <h4>
+                                Balling: @item.Balling
+
+                            </h4>
+                            <h4>Batting: @item.Batting</h4>
+                           
+
+                            <h4>Strike Rate:  @item.StrikeRate</h4>
+                            <br />
+                            @if (item.Status == "0")
+                            {
+                                <h3>Sold</h3>
+                            }
+                            else
+                            {
+                                <h3>Unsold</h3>
+                            }
+                      
+
+                            @*<ul class="social-icons d-flex justify-content-center">
+            <li style="--i:1">
+                <a href="#">
+                    <span class="fab fa-facebook"></span>
+                </a>
+            </li>
+            <li style="--i:2">
+                <a href="#">
+                    <span class="fab fa-twitter"></span>
+                </a>
+            </li>
+            <li style="--i:3">
+                <a href="#">
+                    <span class="fab fa-instagram"></span>
+                </a>
+            </li>
+        </ul>*@
+                        </div>
+                    </div>
+                </div>
+
+            }
+          
+        </div>
+
+
+    </div>
+</section>
+

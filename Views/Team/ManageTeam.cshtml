@@ -1,0 +1,133 @@
+﻿@{
+    ViewData["Title"] = "Manage Team";
+    Layout = "~/Views/Shared/_BE_Layout.cshtml";
+    @model IEnumerable<Cricket_Auction.Models.Team>
+}
+<link rel="stylesheet" href="bower_components/morris.js/morris.css">
+<link rel="stylesheet" href="~/css/site.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+
+<br />
+<div class="container row p-0 m-0">
+    <div class="col-6">
+        <h2 class="text-info">List of Team</h2>
+    </div>
+    <div class="col-3 offset-3">
+        <a asp-action="Create" asp-controller="Team" class="btn btn-info form-control text-white">
+            Add Team
+        </a>
+    </div>
+    <div class="col-12 border p-3">
+        <table class="table table-responsive-lg">
+            <thead>
+                <tr>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.TeamName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Price)
+                    </th>
+                  
+
+                    <th>Buttons</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TeamName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        
+
+                        <td>
+                            <a asp-action="Update" asp-route-id="@item.TeamID">Edit</a> |
+                            <a asp-action="Delete" asp-route-id="@item.TeamID">Delete</a>
+
+                            <input type="button" onclick="ConfirmDelete(@item.TeamID)" class="btn btn-danger" value="Delete" />
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script>
+
+    function ConfirmDelete(id) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-danger m-2',
+                cancelButton: 'btn btn-info m-2'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Team/Delete",
+                    data: { id: id },
+                    success: function (result) {
+                        if (result.status == "success") {
+                            swalWithBootstrapButtons.fire(
+                                'Success',
+                                result.Message,
+                                'Success'
+                            ).then((res) => {
+                                if (res.isConfirmed) {
+                                    location.reload();
+                                }
+                            })
+                        }
+                        else {
+                            swalWithBootstrapButtons.fire(
+                                'Error',
+                                result.Message,
+                                'error'
+                            )
+                        }
+                    }
+                })
+
+            }
+            else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                //swalWithBootstrapButtons.fire(
+                //    'Cancelled',
+                //    'Your data is safe :)',
+                //    'error'
+                //)
+            }
+        })
+    }
+</script>
+
+
+@section Scripts{
+    <script src="~/js/Team.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+}
